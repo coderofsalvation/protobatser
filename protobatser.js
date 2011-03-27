@@ -199,9 +199,13 @@ protobatser.init  = function( prototype ){
   this.vars.prototype = prototype;
   return is.Object( prototype );
 }
-protobatser.onMenuChange = function( title_menu ){
+protobatser.onMenuChange = function( title_menu, el ){
   _trace( "onMenuChange: "+title_menu );
   if( this.vars.prototype.menuChange ) this.vars.prototype.menuChange( title_menu );
+	var links = document.getElementsByTagName('a');
+	if( links.length ) 
+	  for( i in links ) 
+		  links[i].className = (( links[i] == el ) ? "active " : String( links[i].className ).replace("active","" ));
 }
 
 protobatser.render = function( index ){
@@ -213,7 +217,7 @@ protobatser.render = function( index ){
   page      = pages[ index ];
   // generate menu
   for( i in pages ){
-    _assign( "href",       "javascript:protobatser.render( "+i+") && protobatser.onMenuChange( \""+ pages[i].title_menu +"\" );" );
+    _assign( "href",       "javascript:protobatser.render( "+i+") && protobatser.onMenuChange( \""+ pages[i].title_menu +"\", this );" );
     _assign( "title_menu", pages[i].title_menu );
     html_menu += "" + _fetch( this.vars.prototype.menuItem );
   }
