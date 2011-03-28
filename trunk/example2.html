@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title id="title">projectenbrigade prototype</title>
+
+  <style type="text/css">
+    #frame      { border:1px solid #888; margin:35px; padding:50px }
+    .curved-big { border-radius:18px;/*CSS3compliantbrowsers*/-moz-border-radius:18px;/*firefox*/-webkit-border-radius:18px;/*GoogleChrome,Safari*/-khtml-border-radius:18px;/*LinuxBrowsers*/*behavior:url("curved.htc");/*IEBrowsers*//*background-image:url("curved.svg");/*Opera9.5+*/}
+    .curved     { border-radius:10px;/*CSS3compliantbrowsers*/-moz-border-radius:10px;/*firefox*/-webkit-border-radius:10px;/*GoogleChrome,Safari*/-khtml-border-radius:10px;/*LinuxBrowsers*/*behavior:url("curved.htc");/*IEBrowsers*//*background-image:url("curved.svg");/*Opera9.5+*/}
+    .clear      { clear:both }
+    ul,li       { margin:0; padding:0 }
+    #menu       { margin-bottom:20px }
+    #menu ul li { float:left; text-decoration:none; list-style-type:none; margin-right:10px }
+    .column3    { width:29% }
+    .column2    { width:58% }
+    .column1    { width:87% }
+    #content,
+    #left,
+    #right      { float:left; background-color:#F0F0F0; border-right:25px solid #FFF; padding:10px }
+    .active     { text-decoration: bold }
+  </style>
+
+  <script type="text/javascript" src="protobatser.js"></script>
+  <script type="text/javascript">
+    function onDomReady(){
+      var prototype = { name: "Your site", 
+                        menu:     "<ul>{$menu}</ul><div class='clear'></div>",
+                        menuItem: "<li><a class='' href='{$href}'>{$title_menu}</a></li>",
+                        pages: [ 
+                                 { title: "Home",         title_menu: "home",    html: "div#frame.curved-big>div#menu+div#left.column3^text={$loremipsum}+div#content.column3^text={$loremipsum}+div#right.column3^text={$loremipsum}+div.clear"},
+                                 { title: "Lorem ipsum1", title_menu: "ipsum 1", html: "div#frame.curved-big>div#menu+div#left.column2^text={$loremipsum}+div#content.column3^text={$loremipsum}+div.clear"},
+                                 { title: "Lorem ipsum2", title_menu: "ipsum 2", html: "div#frame.curved-big>div#menu+div#left.column3^text={$loremipsum}+div#content.column3^text={$loremipsum}+div#right.column3^text={$loremipsum}+div.clear"},
+                                 { title: "Dynamic",      title_menu: "dynamic", html: "div#frame.curved-big>div#menu+div#content.column1^text={$loremipsum}. {$foo}+div.clear"},
+                               ],
+                        renderComplete: function(){ _trace("rendering done!"); },
+                        menuChange: function( title_menu ){
+                          // lets fill some divs with content
+                          switch( title_menu ){
+                            case "dynamic":   _assign("foo", "you can also alter stuff later like this!");
+                                              $('content').innerHTML = _fetch( $('content').innerHTML );
+                                              zencode( "div^text=or like this>div", $('content') );
+                                              break;
+                          }
+                          var loremipsum = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.";
+                          _assign( "loremipsum", loremipsum );
+                          if( $('content') ) $('content').innerHTML = _fetch( $('content').innerHTML );
+                          if( $('left') )    $('left').innerHTML    = _fetch( $('left').innerHTML );
+                          if( $('right') )   $('right').innerHTML   = _fetch( $('right').innerHTML );
+                        }
+                      };
+      if( protobatser.init( prototype ) ) protobatser.render();
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>

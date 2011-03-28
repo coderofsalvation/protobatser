@@ -205,7 +205,7 @@ protobatser.onMenuChange = function( title_menu, el ){
 	var links = document.getElementsByTagName('a');
 	if( links.length ) 
 	  for( i in links ) 
-		  links[i].className = (( links[i] == el ) ? "active " : String( links[i].className ).replace("active","" ));
+		  links[i].className = "active";// ( _hasClass( "active", links[i] ) ) ? "active " : links[i].className;//String( links[i].className ).replace("active"," ");
 }
 
 protobatser.render = function( index ){
@@ -227,4 +227,5 @@ protobatser.render = function( index ){
   _assign( "menu", html_menu );
   $('menu').innerHTML += _fetch( this.vars.prototype.menu );
   protobatser.onMenuChange( pages[ index ].title_menu );
+	if( is.Function( this.vars.prototype.renderComplete ) ) this.vars.prototype.renderComplete();
 }
