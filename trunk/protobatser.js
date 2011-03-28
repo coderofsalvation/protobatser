@@ -225,7 +225,7 @@ protobatser.render = function( index ){
   document.body.innerHTML = "";
   zencode(page.html ); // inserted to body because no parent given
   _assign( "menu", html_menu );
-  $('menu').innerHTML += _fetch( this.vars.prototype.menu );
+  if( $('menu') ) $('menu').innerHTML += _fetch( this.vars.prototype.menu );
   protobatser.onMenuChange( pages[ index ].title_menu );
 	if( is.Function( this.vars.prototype.renderComplete ) ) this.vars.prototype.renderComplete();
 }
