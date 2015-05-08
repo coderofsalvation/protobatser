@@ -24,9 +24,7 @@ Because in some cases jamming simple HTML/CSS can be quicker for developers, esp
 
 ## Screenshot
 
-See here a simple example, with additional use of protonotes:
-
-
+<img alt="" src="screenshot.png"/>
 
 ## Howto
 
